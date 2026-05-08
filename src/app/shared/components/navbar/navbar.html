@@ -1,0 +1,27 @@
+<!-- src/app/shared/components/navbar/navbar.component.html -->
+<mat-toolbar color="primary">
+  <span>Inventory System</span>
+  <span style="flex: 1"></span>
+
+  @if (authStore.user()) {
+    <button mat-button [matMenuTriggerFor]="userMenu">
+      <mat-icon>account_circle</mat-icon>
+      {{ authStore.user()!.username }}
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+
+    <mat-menu #userMenu>
+      <div class="px-4 py-2">
+        <p class="m-0 font-bold">{{ authStore.user()!.email }}</p>
+        <p class="m-0 text-sm text-gray-500">
+          {{ authStore.user()!.roles.join(', ') }}
+        </p>
+      </div>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Cerrar sesión
+      </button>
+    </mat-menu>
+  }
+</mat-toolbar>

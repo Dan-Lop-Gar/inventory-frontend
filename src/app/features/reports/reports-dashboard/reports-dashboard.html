@@ -1,0 +1,94 @@
+<!-- reports-dashboard.component.html -->
+<div class="page-container">
+  <h2>Reportes y Estadísticas</h2>
+
+  @if (error()) {
+    <div class="alert-error">{{ error() }}</div>
+  }
+
+  <!-- Tarjetas de resumen -->
+  <div class="stats-cards">
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-number">{{ totalProducts() }}</div>
+        <div class="stat-label">Total Productos</div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="stat-card stat-ok">
+      <mat-card-content>
+        <div class="stat-number">{{ productsOk() }}</div>
+        <div class="stat-label">Stock Normal</div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="stat-card stat-alert">
+      <mat-card-content>
+        <div class="stat-number">{{ productsBelowMin() }}</div>
+        <div class="stat-label">Stock Bajo Mínimo</div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Gráficas -->
+  <div class="charts-grid">
+
+    <mat-card class="chart-card chart-wide">
+      <mat-card-content>
+        @if (loading()) {
+          <mat-spinner diameter="40"></mat-spinner>
+        } @else {
+          <canvas baseChart
+            [data]="barChartData"
+            [type]="barChartType"
+            [options]="barChartOptions">
+          </canvas>
+        }
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="chart-card">
+      <mat-card-content>
+        <canvas baseChart
+          [data]="pieChartData"
+          [type]="pieChartType"
+          [options]="pieChartOptions">
+        </canvas>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="chart-card chart-wide">
+      <mat-card-header>
+        <mat-card-title>Movimientos por período</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="date-filters">
+          <mat-form-field appearance="outline">
+            <mat-label>Desde</mat-label>
+            <input matInput [matDatepicker]="pickerFrom"
+                   [formControl]="dateFrom"
+                   (dateChange)="onDateRangeChange()">
+            <mat-datepicker-toggle matSuffix [for]="pickerFrom">
+            </mat-datepicker-toggle>
+            <mat-datepicker #pickerFrom></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Hasta</mat-label>
+            <input matInput [matDatepicker]="pickerTo"
+                   [formControl]="dateTo"
+                   (dateChange)="onDateRangeChange()">
+            <mat-datepicker-toggle matSuffix [for]="pickerTo">
+            </mat-datepicker-toggle>
+            <mat-datepicker #pickerTo></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <canvas baseChart
+          [data]="lineChartData"
+          [type]="lineChartType"
+          [options]="lineChartOptions">
+        </canvas>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+</div>

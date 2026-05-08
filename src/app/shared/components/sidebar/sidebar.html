@@ -1,0 +1,13 @@
+<mat-nav-list class="sidebar">
+  @for (item of navItems; track item.route) {
+    @if (canShow(item)) {
+      <a mat-list-item
+         [routerLink]="item.route"
+         routerLinkActive="active-link"
+         [routerLinkActiveOptions]="{ exact: false }">
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        <span matListItemTitle>{{ item.label }}</span>
+      </a>
+    }
+  }
+</mat-nav-list>

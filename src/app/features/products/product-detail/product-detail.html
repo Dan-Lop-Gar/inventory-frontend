@@ -1,0 +1,76 @@
+<div class="page-container" *ngIf="product() as p">
+  <div class="page-header">
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>Detalle del Producto: {{ p.name }}</h2>
+  </div>
+
+  <div class="detail-grid">
+    <!-- Información Principal -->
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-card-title>Información General</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item>
+            <span class="label">SKU:</span>
+            <span class="value"><code>{{ p.sku }}</code></span>
+          </mat-list-item>
+          <mat-list-item>
+            <span class="label">Precio:</span>
+            <span class="value">{{ p.price | currency:'MXN' }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span class="label">Categoría:</span>
+            <span class="value">{{ p.categoryName }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span class="label">Proveedor:</span>
+            <span class="value">{{ p.supplierName }}</span>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Estado de Inventario -->
+    <mat-card class="stock-card" [class.low-stock]="p.belowMinimumStock">
+      <mat-card-header>
+        <mat-card-title>Inventario</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="stock-display">
+          <div class="stock-item">
+            <span class="stock-label">Actual</span>
+            <span class="stock-value">{{ p.stockCurrent }}</span>
+          </div>
+          <div class="stock-separator">/</div>
+          <div class="stock-item">
+            <span class="stock-label">Mínimo</span>
+            <span class="stock-value">{{ p.stockMinimum }}</span>
+          </div>
+        </div>
+        
+        <mat-chip-set class="status-chip">
+          <mat-chip [color]="p.belowMinimumStock ? 'warn' : 'primary'" highlighted>
+            {{ p.belowMinimumStock ? 'STOCK BAJO' : 'STOCK NORMAL' }}
+          </mat-chip>
+        </mat-chip-set>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <mat-card class="description-card">
+    <mat-card-header>
+      <mat-card-title>Descripción</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ p.description || 'Sin descripción disponible.' }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div *ngIf="loading()" class="loading-shade">
+  <mat-spinner></mat-spinner>
+</div>

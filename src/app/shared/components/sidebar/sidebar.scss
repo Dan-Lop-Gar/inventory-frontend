@@ -1,0 +1,15 @@
+.sidebar {
+  width: 220px;
+  min-height: 100%;
+  background: white;
+  border-right: 1px solid #e0e0e0;
+}
+
+.active-link {
+  background-color: rgba(63, 81, 181, 0.1);
+  color: #3f51b5;
+
+  mat-icon {
+    color: #3f51b5;
+  }
+}

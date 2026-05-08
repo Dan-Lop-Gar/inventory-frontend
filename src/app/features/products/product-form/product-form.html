@@ -1,0 +1,119 @@
+<!-- product-form.component.html -->
+<div class="page-container" style="max-width: 700px">
+
+  <div class="page-header">
+    <h2>Nuevo Producto</h2>
+  </div>
+
+  @if (error()) {
+    <div class="alert-error">{{ error() }}</div>
+  }
+
+  <mat-card>
+    <mat-card-content class="pt-4">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="flex-1">
+            <mat-label>SKU</mat-label>
+            <input matInput formControlName="sku" placeholder="ELEC-001">
+            @if (skuCtrl.invalid && skuCtrl.touched) {
+              <mat-error>
+                @if (skuCtrl.errors?.['required']) { SKU es requerido }
+                @if (skuCtrl.errors?.['maxlength']) { Máximo 50 caracteres }
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="flex: 2">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="name" placeholder="Laptop Pro 15">
+            @if (nameCtrl.invalid && nameCtrl.touched) {
+              <mat-error>
+                @if (nameCtrl.errors?.['required']) { Nombre es requerido }
+                @if (nameCtrl.errors?.['maxlength']) { Máximo 200 caracteres }
+              </mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput formControlName="description" rows="3"></textarea>
+        </mat-form-field>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="flex-1">
+            <mat-label>Precio</mat-label>
+            <span matTextPrefix>$&nbsp;</span>
+            <input matInput formControlName="price" type="number" min="0" step="0.01">
+            @if (priceCtrl.invalid && priceCtrl.touched) {
+              <mat-error>
+                @if (priceCtrl.errors?.['required']) { Precio requerido }
+                @if (priceCtrl.errors?.['min']) { Debe ser mayor a 0 }
+              </mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="flex-1">
+            <mat-label>Stock inicial</mat-label>
+            <input matInput formControlName="stockCurrent" type="number" min="0">
+            @if (stockCurrentCtrl.invalid && stockCurrentCtrl.touched) {
+              <mat-error>Stock inicial requerido</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="flex-1">
+            <mat-label>Stock mínimo</mat-label>
+            <input matInput formControlName="stockMinimum" type="number" min="0">
+            @if (stockMinimumCtrl.invalid && stockMinimumCtrl.touched) {
+              <mat-error>Stock mínimo requerido</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="flex-1">
+            <mat-label>Categoría</mat-label>
+            <mat-select formControlName="categoryId">
+              @for (cat of categories(); track cat.id) {
+                <mat-option [value]="cat.id">{{ cat.name }}</mat-option>
+              }
+            </mat-select>
+            @if (categoryIdCtrl.invalid && categoryIdCtrl.touched) {
+              <mat-error>Categoría requerida</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="flex-1">
+            <mat-label>Proveedor</mat-label>
+            <mat-select formControlName="supplierId">
+              @for (sup of suppliers(); track sup.id) {
+                <mat-option [value]="sup.id">{{ sup.name }}</mat-option>
+              }
+            </mat-select>
+            @if (supplierIdCtrl.invalid && supplierIdCtrl.touched) {
+              <mat-error>Proveedor requerido</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-button type="button" (click)="cancel()">
+            Cancelar
+          </button>
+          <button mat-raised-button color="primary"
+                  type="submit"
+                  [disabled]="saving()">
+            @if (saving()) {
+              <mat-spinner diameter="20" style="display:inline-block"></mat-spinner>
+            } @else {
+              <mat-icon>save</mat-icon> Guardar
+            }
+          </button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
