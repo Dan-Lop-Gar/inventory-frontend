@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  apiRestUrl: 'http://backend/api',
-  apiGrpcUrl: 'http://envoy/api/grpc',
+  apiRestUrl: 'http://backend:8080/api',
+  apiGrpcUrl: 'http://envoy:8090/api/grpc',
   keycloak: {
     url: 'http://keycloak:8180',
     realm: 'inventory',
