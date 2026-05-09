@@ -3,7 +3,7 @@ export const environment = {
   apiRestUrl: 'http://backend:8080/api',
   apiGrpcUrl: 'http://envoy:8090/api/grpc',
   keycloak: {
-    url: 'http://keycloak:8180',
+    url: 'http://keycloak:8080',
     realm: 'inventory',
     clientId: 'inventory-frontend'
   }
