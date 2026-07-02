@@ -6,5 +6,7 @@ export const environment = {
     url: 'http://localhost:8180',
     realm: 'inventory',
     clientId: 'inventory-frontend'
+
+
   }
 };
