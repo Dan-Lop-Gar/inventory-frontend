@@ -6,5 +6,7 @@ export const environment = {
     url: 'http://keycloak:8080',
     realm: 'inventory',
     clientId: 'inventory-frontend'
+
+
   }
 };
